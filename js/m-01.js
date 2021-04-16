@@ -213,46 +213,302 @@ function makeTransaction(pricePerDroid, orderedQuantity, customerCredits) {
 }
 
 /*-------19---------*/
+/*let cost;
+const subscription = 'premium';
 
+if (subscription === 'free') {
+  cost = 0;
+} else if (subscription === 'pro') {
+  cost = 100;
+} else if (subscription === 'premium') {
+  cost = 500;
+} else {
+  console.log(`Невалидный тип подписки ${subscription}`);
+}
+
+console.log(cost); // 500*/
+
+function checkPassword(password) {
+  const ADMIN_PASSWORD = 'jqueryismyjam';
+  let message;
+
+  if (password===null) { // Дополни эту строку
+    message =  'Отменено пользователем!';
+  } else if (password===ADMIN_PASSWORD) { // Дополни эту строку
+    message = 'Добро пожаловать!';
+  } else {
+    message = 'Доступ запрещен, неверный пароль!';
+  }
+
+  return message;
+}
 
 /*-------20---------*/
-
+function checkStorage(available, ordered) {
+  let message;
+  // Пиши код ниже этой строки
+if (ordered===0) {
+message = ('В заказе еще нет товаров');
+} else if (ordered > available) {
+  message = ('Слишком большой заказ, на складе недостаточно товаров!');
+} else {
+  message = ( 'Заказ оформлен, с вами свяжется менеджер');
+}
+  
+  // Пиши код выше этой строки
+  return message;
+}
 
 /*-------21---------*/
+/*console.log(true && false); // false
+console.log(false && true); // false
+console.log(true && true); // true
 
+console.log(3 && false); // false
+console.log(false && 3); // false
+console.log(3 && true); // true
+console.log(true && 3); // 3*/
+
+/*шесть значений, которые в булевом преобразовании приводятся к `false`: `0`, `NaN`, `null`, `undefined`, пустая строка `""` или `''` и само значение `false`. Абсолютно всё остальное приводится к `true`.
+console.log(1 && 5); // true && true -> 5
+console.log(5 && 1); // true && true -> 1
+console.log(0 && 2); // false && true -> 0
+console.log(2 && 0); // true && false -> 0
+console.log('' && 'Манго'); // false && true -> ''
+console.log('Манго' && ''); // true && false -> ''
+console.log('Манго' && 'Поли'); // true && true -> 'Поли'
+console.log('Поли' && 'Манго'); // true && true -> 'Манго'*/
+
+function isNumberInRange(start, end, number) {
+  const isInRange = (number >= start && number <= end); // дополни эту строку
+
+  return isInRange;
+}
 
 /*-------22---------*/
+/*console.log(true || false); // true
+console.log(false || true); // true
+console.log(true || true); // true
 
+console.log(3 || false); // 3
+console.log(false || 3); // 3
+console.log(3 || true); // 3
+console.log(true || 3); // true*/
+
+function checkIfCanAccessContent(subType) {
+  const canAccessContent = (subType === 'pro' || subType === 'vip'); // дополни эту строку
+
+  return canAccessContent;
+}
 
 /*-------23---------*/
+/*console.log(!true); // false
+console.log(!false); // true
+console.log(!3); // !3 -> !true -> false
+console.log(!'Манго'); // !'Манго' -> !true -> false
+console.log(!0); // !0 -> !false -> true
+console.log(!''); // !'' -> !false -> true
 
+const isOnline = true;
+const isNotOnline = !isOnline; // !isOnline -> !true -> false*/
+
+function isNumberNotInRange(start, end, number) {
+  const isInRange = number >= start && number <= end;
+  const isNotInRange = (!isInRange); // Дополни эту строку
+
+  return isNotInRange;
+}
 
 /*-------24---------*/
 
-
+function getDiscount(totalSpent) {
+  const BASE_DISCOUNT = 0;
+  const BRONZE_DISCOUNT = 0.02;
+  const SILVER_DISCOUNT = 0.05;
+  const GOLD_DISCOUNT = 0.1;
+  let discount;
+  // Пиши код ниже этой строки
+if (totalSpent >= 50000) {
+  discount = (GOLD_DISCOUNT);
+} else if (totalSpent >= 20000 && totalSpent < 50000) {
+discount = (SILVER_DISCOUNT);
+} else if (totalSpent >= 5000 && totalSpent < 20000) {
+discount = (BRONZE_DISCOUNT);
+} else {
+discount = (BASE_DISCOUNT)
+}
+  // Пиши код выше этой строки
+  return discount;
+}
 /*-------25---------*/
+/*let type;
+const age = 20;
 
+if (age >= 18) {
+  type = 'adult';
+} else {
+  type = 'child';
+}
+
+console.log(type); // 'adult'
+
+Выполним рефакторинг, заменив if...else тернарным оператором.
+
+const age = 20;
+const type = age >= 18 ? 'adult' : 'child';
+console.log(type); // 'adult'*/
+
+function checkStorage(available, ordered) {
+  let message;
+  // Пиши код ниже этой строки
+
+  message = ordered>available?'На складе недостаточно товаров!':'Заказ оформлен, с вами свяжется менеджер';
+  
+
+  // Пиши код выше этой строки
+  return message;
+}
 
 /*-------26---------*/
 
-
+function checkPassword(password) {
+  const ADMIN_PASSWORD = 'jqueryismyjam';
+  let message;
+  // Пиши код ниже этой строки
+ message = (password === ADMIN_PASSWORD)?'Доступ разрешен':'Доступ запрещен, неверный пароль!';
+  // Пиши код выше этой строки
+  return message;
+}
 /*-------27---------*/
+/*switch (значение) {
+  case значение:
+    инструкции;
+    break;
 
+  case значение:
+    инструкции;
+    break;*/
 
+/*нельзя сравнить на больше или меньше, только на равенство.*/
+
+function getSubscriptionPrice(type) {
+  let price;
+  // Пиши код ниже этой строки
+
+ switch (type) { // Дополни эту строку
+    case 'starter' :// Дополни эту строку
+      price = 0; // Дополни эту строку
+      break;
+
+   case 'professional': // Дополни эту строку
+      price = 20; // Дополни эту строку
+      break;
+
+    case 'organization': // Дополни эту строку
+      price = 50; // Дополни эту строку
+      break;
+  }
+
+  // Пиши код выше этой строки
+  return price;
+}
 /*-------28---------*/
+/*switch (значение) {
+  case значение:
+    инструкции;
+    break;
+
+  case значение:
+    инструкции;
+    break;
+
+  default:
+    инструкции;}*/
+
+function checkPassword(password) {
+  const ADMIN_PASSWORD = 'jqueryismyjam';
+  let message;
+
+  switch (password){
+    case null:
+      message = 'Отменено пользователем!';
+      break;
+    case ADMIN_PASSWORD: 
+      message = 'Добро пожаловать!';
+      break;
+    default:
+      message = 'Доступ запрещен, неверный пароль!';
+  }
+
+  return message;
+}
 
 
 /*-------29---------*/
 
-
+function getShippingCost(country) {
+  let message;
+ 
+  // Пиши код ниже этой строки
+switch (country) {
+  case 'Китай':
+    message = 'Доставка в Китай будет стоить 100 кредитов';
+    break;
+  case 'Чили':
+    message = 'Доставка в Чили будет стоить 250 кредитов';
+    break;
+  case 'Австралия':
+    message = 'Доставка в Австралия будет стоить 170 кредитов';
+    break;
+  case 'Ямайка':
+    message = 'Доставка в Ямайка будет стоить 120 кредитов';
+    break;
+   default:
+     message = 'Извините, в вашу страну доставки нет';
+ 
+}
+  // Пиши код выше этой строки
+  return message;
+}
 /*-------30---------*/
+/*const productName = 'Ремонтный дроид';
+
+// Если в переменной хранится строка
+console.log(productName.length); // 15
+
+// Если строковый литерал
+console.log('Ремонтный дроид'.length); // 15*/
+
+function getNameLength(name) {
+  const productName = (name.length);
+  const message = `Длина вашего имени ${productName} символа(ов)`; // Дополни эту строку
+
+  return message;
+}
 
 
 /*-------31---------*/
+/*const productName = 'Ремонтный дроид';
+console.log(productName[0]); // 'P'
+console.log(productName[5]); // 'т'
+console.log(productName[14]); // 'д'
+console.log(productName[productName.length - 1]); // 'д'*/
+const courseTopic = 'JavaSript для начинающих';
+// Пиши код ниже этой строки
 
+const courseTopicLength = courseTopic.length;
+const firstElement = courseTopic[0];
+const lastElement = courseTopic[courseTopic.length-1];
+
+// Пиши код выше этой строки
 
 /*-------32---------*/
-
+/*Метод строк slice(startIndex, endIndex) используется для создания копии части или всей строки
+const productName = 'Ремонтный дроид';
+console.log(productName.slice(0, 4)); // 'Ремо'
+console.log(productName.slice(3, 9)); // 'онтный'
+console.log(productName.slice(0, productName.length)); // 'Ремонтный дроид'
+console.log(productName.slice(10, productName.length)); // 'дроид'*/
 
 /*-------33---------*/
 
@@ -265,5 +521,3 @@ function makeTransaction(pricePerDroid, orderedQuantity, customerCredits) {
 
 /*-------36---------*/
 
-
-/*-------37---------*/
