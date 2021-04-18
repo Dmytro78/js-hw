@@ -510,14 +510,83 @@ console.log(productName.slice(3, 9)); // 'онтный'
 console.log(productName.slice(0, productName.length)); // 'Ремонтный дроид'
 console.log(productName.slice(10, productName.length)); // 'дроид'*/
 
+function getSubstring(string, length) {
+  const substring = string.slice(string, length); // Дополни эту строку
+
+  return substring;
+}
+
 /*-------33---------*/
 
+/*Дополни код функции так, что если длина строки:
+не превышает maxLength, функция возвращает её в исходном виде.
+больше maxLength, то функция обрезает строку до maxLength символов и добавляет в конец троеточие '...', после чего возвращает укороченную версию.*/
+
+function formatMessage(message, maxLength) {
+  let result;
+// Пиши код ниже этой строки
+if (message.length <= maxLength) {
+	result= message;
+} else {
+	result= message.slice(message, maxLength)+'...';
+}
+// Пиши код выше этой строки
+  return result;
+}
 
 /*-------34---------*/
+/*Чтобы не требовать абсолютно точный ввод можно сделать «нормализацию» введённой пользователем строки, то есть 
+преобразовать все её символы в верхний или нижний регистр. 
+Методы строки toUpperCase() и toLowerCase() вернут новую строку в соответствующем регистре, не изменяя оригинальную.
+
+const BRAND_NAME = 'SAMSUNG';
+const userInput = 'saMsUng';
+const normalizedToUpperCaseInput = userInput.toUpperCase();
+
+console.log(userInput); // 'saMsUng'
+console.log(userInput === BRAND_NAME); // false
+console.log(normalizedToUpperCaseInput); // 'SAMSUNG'
+console.log(normalizedToUpperCaseInput === BRAND_NAME); // true*/
+
+function normalizeInput(input) {
+  const normalizedInput = input.toLowerCase(); // Дополни эту строку
+  return normalizedInput;
+}
 
 
 /*-------35---------*/
+/*Метод строк includes(substring) проверяет входит ли подстрока substring в строку, возвращает буль - true если входит и false в противном случае. Регистр символов в строке и подстроке имеет значение, так как например буква 'a' не равна букве 'А'.
+
+const productName = 'Ремонтный дроид';
+
+console.log(productName.includes('н')); // true
+console.log(productName.includes('Н')); // false
+console.log(productName.includes('дроид')); // true
+console.log(productName.includes('Дроид')); // false
+console.log(productName.includes('Ремонтный')); // true
+console.log(productName.includes('ремонтный')); // false*/
+
+/*Присвой переменной result выражение проверки вхождения имени(параметр name), в полное имя(параметр fullname).
+Пусть функция строго относится к регистру букв, то есть «Петя» и «петя» для неё разные имена.*/
+
+function checkForName(fullName, name) {
+ const result = fullName.includes(name); // Дополни эту строку
+  return result;
+}
 
 
 /*-------36---------*/
+/*Функция checkForSpam(message) принимает строку (параметр message), проверяет её на содержание запрещенных слов spam и sale, и возвращает результат проверки. Слова в строке параметра message могут быть в произвольном регистре, например SPAM или sAlE.
+
+Если нашли запрещенное слово (spam или sale) то функция возвращает буль true.
+Если в строке нет запрещенных слов, функция возвращает буль false.*/
+
+function checkForSpam(message) {
+  let result;
+  // Пиши код ниже этой строки
+ message = message.toLowerCase();
+    result = message.includes("spam") || message.includes("sale");
+  // Пиши код выше этой строки
+  return result;
+}
 
