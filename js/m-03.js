@@ -372,9 +372,339 @@ const credentials = {
 
 
 /*------------10--------------*/
+/*В отличии от массива или строки, объект - это не итерируемая сущность, то есть его нельзя перебрать циклами for или for...of. Для перебора объектов используется специальный цикл for...in, который перебирает ключи объекта object.
 
+for (key in object) {
+  // инструкции
+}
+Переменная key доступная только в теле цикла. На каждой итерации в неё будет записано значение ключа (имя) свойства. Для того чтобы получить значение свойства с таким ключом (именем), используется синтаксис квадратных скобок.
 
+const book = {
+  title: 'Последнее королевство',
+  author: 'Бернард Корнуэлл',
+  genres: ['историческая проза', 'приключения'],
+  rating: 8.38,
+};
 
+for (const key in book) {
+  // Ключ
+  console.log(key);
+  // Значение свойства с таким ключом
+  console.log(book[key]);
+}*/
+
+// Задание
+// Перебери объект apartment используя цикл for...in и запиши в массив keys все его ключи, а в массив values все значения его свойств.
+
+const apartment = {
+  descr: 'Просторная квартира в центре',
+  rating: 4,
+  price: 2153,
+};
+const keys = [];
+const values = [];
+// Пиши код ниже этой строки
+
+for (const key in apartment) {
+    keys.push(key);
+	values.push(apartment[key]);
+}
 
 /*============11================*/
+/*
+Метод hasOwnProperty()
+Разберём концепцию собственных и несобственных свойств объекта и научимся правильно использовать цикл for...in.
+
+const animal = {
+  legs: 4,
+};
+const dog = Object.create(animal);
+dog.name = 'Манго';
+
+console.log(dog); // {name: 'Манго'}
+console.log(dog.name); // 'Манго'
+console.log(dog.legs); // 4
+Метод Object.create(animal) создаёт и возвращает новый объект, связывая его с объектом animal. Поэтому можно получить значение свойства legs обратившись к нему как dog.legs, хотя его нет в объекте dog - это несобственное свойство из объекта animal.
+
+Оператор in, который используется в цикле for...in, не делает различия между собственными и несобственными свойствами объекта. Эта особенность мешает, так как мы всегда хотим перебрать только собственные свойства. Для того чтобы узнать есть в объекте собственное свойство или нет, используется метод hasOwnProperty(key), который возвращает true или false.
+
+// ❌ Возвращает true для всех свойств
+console.log('name' in dog); // true
+console.log('legs' in dog); // true
+
+// ✅ Возвращает true только для собственных свойств
+console.log(dog.hasOwnProperty('name')); // true
+console.log(dog.hasOwnProperty('legs')); // false
+Поэтому при переборе циклом for...in необходимо на каждой итерации добавить проверку на собственное свойство. Даже если сейчас мы уверены в том что у объекта нет несобственных свойств, это оградит от возможных ошибок в будущем.
+
+const book = {
+  title: 'Последнее королевство',
+  author: 'Бернард Корнуэлл',
+  genres: ['историческая проза', 'приключения'],
+  rating: 8.38,
+};
+
+for (const key in book) {
+  // Если это собственное свойство - выполняем тело if
+  if (book.hasOwnProperty(key)) {
+    console.log(key);
+    console.log(book[key]);
+  }
+
+  // Если это не собственное свойство - ничего не делаем
+}*/
+
+// Задание
+// Выполни рефакторинг решения предыдущего задания добавив в цикл for...in проверку на собственное свойство.
+const keys = [];
+const values = [];
+const advert = {
+  service: 'apt',
+};
+const apartment = Object.create(advert);
+apartment.descr = 'Просторная квартира в центре';
+apartment.rating = 4;
+apartment.price = 2153;
+
+for (const key in apartment) {
+  // Пиши код ниже этой строки
+	if (apartment.hasOwnProperty(key)) {
+  keys.push(key);
+  values.push(apartment[key]);
+    }
+  // Пиши код выше этой строки
+}
+
+
+/*============12 =========*/
+// Напиши функцию countProps(object), которая считает и возвращает количество собственных свойств объекта в параметре object. Используй переменную propCount для хранения количества свойств объекта.
+
+function countProps(object) {
+  let propCount = 0;
+  // Пиши код ниже этой строки
+for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        propCount++;
+      }
+    }
+  // Пиши код выше этой строки
+  return propCount;
+}
+
+
+/*------13-------- */
+
+/*Метод Object.keys()
+У встроенного класса Object есть несколько полезных методов для работы с объектами. 
+Первый из них это Object.keys(obj), который принимает объект и возвращает массив ключей его собственных свойств. Если в объекте нет свойств, метод вернёт пустой массив.
+
+const book = {
+  title: 'Последнее королевство',
+  author: 'Бернард Корнуэлл',
+  genres: ['историческая проза', 'приключения'],
+  rating: 8.38,
+};
+const keys = Object.keys(book);
+console.log(keys); // ['title', 'author', 'genres', 'rating']
+Скомбинировав результат Object.keys() и цикл for...of можно удобно перебрать собственные свойства объекта, не прибегая к использованию архаического цикла for...in с проверками принадлежности свойств.
+
+const book = {
+  title: 'Последнее королевство',
+  author: 'Бернард Корнуэлл',
+  genres: ['историческая проза', 'приключения'],
+  rating: 8.38,
+};
+const keys = Object.keys(book);
+
+for (const key of keys) {
+  // Ключ
+  console.log(key);
+  // Значение свойства
+  console.log(book[key]);
+}
+Мы перебираем массив ключей объекта и на каждой итерации получаем значение свойства с таким ключом.*/
+
+// Задание
+// Перебери объект apartment используя метод Object.keys() и цикл for...of. Запиши в переменную keys массив ключей собственных свойств объекта apartment, и добавь в массив values все значения его свойств.
+
+const apartment = {
+  descr: 'Просторная квартира в центре',
+  rating: 4,
+  price: 2153,
+};
+const values = [];
+// Пиши код ниже этой строки
+const keys = Object.keys(apartment);
+
+for (const key of keys) {
+  values.push(apartment[key]);
+}
+
+/*--------14---------- */
+// Выполни рефакторинг функции countProps(object) используя метод Object.keys() и, возможно, цикл for...of.
+function countProps(object) {
+  // Пиши код ниже этой строки
+
+  /*let propCount = 0;
+
+  for (const key in object) {
+    if (object.hasOwnProperty(key)) {
+      propCount += 1;
+    }
+  } */
+
+  let propCount = Object.keys(object).length
+
+  return propCount;
+  // Пиши код выше этой строки
+}
+
+
+/*-------15---------*/
+
+/*Метод Object.values()
+Если метод Object.keys(obj) возвращает массив ключей собственных свойств объекта, то метод Object.values(obj) возвращает массив значений его собственных свойств. Если в объекте нет свойств, метод Object.values(obj) вернёт пустой массив.
+
+const book = {
+  title: 'Последнее королевство',
+  author: 'Бернард Корнуэлл',
+  rating: 8.38,
+};
+const keys = Object.keys(book);
+console.log(keys); // ['title', 'author', 'genres', 'rating']
+
+const values = Object.values(book);
+console.log(values); // ['Последнее королевство', 'Бернард Корнуэлл', 8.38]
+Массив значений свойств также можно перебрать циклом for...of, например для получения общей суммы числовых значений.*/
+
+// Задание
+// Запиши в переменную keys массив ключей собственных свойств объекта apartment, а в переменную values массив всех значений его свойств. Используй методы Object.keys() и Object.values().
+
+const apartment = {
+  descr: 'Просторная квартира в центре',
+  rating: 4,
+  price: 2153,
+};
+// Пиши код ниже этой строки
+const keys = Object.keys(apartment);
+const values = Object.values(apartment);
+
+
+/*---------16----------*/
+// Задание
+// Напиши функцию countTotalSalary(salaries) которая принимает объект зарплат, где имя свойства это имя сотрудника, а значение свойства это зарплата. Функция должна рассчитать общую сумму зарплат сотрудников и вернуть её. Используй переменную totalSalary для хранения общей суммы зарплаты.
+
+function countTotalSalary(salaries) {
+  let totalSalary = 0;
+  // Пиши код ниже этой строки
+	const propCount = Object.keys(salaries).length;
+    const values = Object.values(salaries);
+
+    for (let i = 0; i < propCount; i++) {
+      totalSalary += values[i];
+    }
+  
+  // Пиши код выше этой строки
+  return totalSalary;
+}
+
+/*----------17-----------*/
+
+/*В стандартный набор повседневных задач разработчика входит манипуляция массивом однотипных объектов. Это значит что все объекты в массиве гарантированно будут иметь одинаковый набор свойств, но с разными значениями.
+
+const books = [
+  {
+    title: 'Последнее королевство',
+    author: 'Бернард Корнуэлл',
+    rating: 8.38,
+  },
+  {
+    title: 'На берегу спокойных вод',
+    author: 'Роберт Шекли',
+    rating: 8.51,
+  },
+  {
+    title: 'Сон смешного человека',
+    author: 'Федор Достоевский',
+    rating: 7.75,
+  },
+];
+Для перебора такого массива используется стандартный цикл for...of. Значения свойств каждого объекта можно получить используя синтаксис «через точку», так как в каждом объекте набор свойств и их имена будут одинаковые, отличаются только значения.
+
+for (const book of books) {
+  // Объект книги
+  console.log(book);
+  // Название
+  console.log(book.title);
+  // Автор
+  console.log(book.author);
+  // Рейтинг
+  console.log(book.rating);
+}*/
+
+
+// Задание
+// Перебери массив объектов colors используя цикл for...of.Добавь в массив hexColors значения свойств hex, а в массив rgbColors значения свойств rgb из всех объектов массива colors.
+const colors = [
+  { hex: '#f44336', rgb: '244,67,54' },
+  { hex: '#2196f3', rgb: '33,150,243' },
+  { hex: '#4caf50', rgb: '76,175,80' },
+  { hex: '#ffeb3b', rgb: '255,235,59' },
+];
+
+const hexColors = [];
+const rgbColors = [];
+// Пиши код ниже этой строки
+ for (const color of colors) {
+  hexColors.push(color.hex);
+  rgbColors.push(color.rgb) 
+ }
+
+
+/*---------18----------*/
+
+// Поиск объекта по значению свойства
+// Задание
+// Напиши функцию getProductPrice(productName) которая принимает один параметр productName - название продукта. Функция ищет объект продукта с таким именем (свойство name) в массиве products и возвращает его цену (свойство price). Если продукт с таким названием не найден, функция должна возвращать null.
+
+/*Тесты
+Объявлена функция getProductPrice(productName).
+Вызов getProductPrice('Радар') возвращает 1300.
+Вызов getProductPrice('Захват') возвращает 1200.
+Вызов getProductPrice('Сканер') возвращает 2700.
+Вызов getProductPrice('Дроид') возвращает 400.
+Вызов getProductPrice('Двигатель') возвращает null.*/
+
+const products = [
+  { name: 'Радар', price: 1300, quantity: 4 },
+  { name: 'Сканер', price: 2700, quantity: 3 },
+  { name: 'Дроид', price: 400, quantity: 7 },
+  { name: 'Захват', price: 1200, quantity: 9 },
+];
+
+function getProductPrice(productName) {
+  // Пиши код ниже этой строки
+  for (const product of products) {
+      if (product.name === productName) {
+        return product.price;
+      }
+  } 
+return null;   
+  // Пиши код выше этой строки
+}
+
+
+/*--------------19------------- */
+
+// Задание
+// Напиши функцию getAllPropValues(propName) которая принимает один параметр propName - имя (ключ) свойства. Функция должна вернуть массив всех значений свойства с таким именем из каждого объекта в массиве products. Если в объектах нет свойства с таким именем, функция должна вернуть пустой массив.
+
+/*Тесты
+Объявлена функция getAllPropValues(propName).
+Вызов getAllPropValues('name') возвращает ['Радар', 'Сканер', 'Дроид', 'Захват'].
+Вызов getAllPropValues('quantity') возвращает [4, 3, 7, 9].
+Вызов getAllPropValues('price') возвращает [1300, 2700, 400, 1200].
+Вызов getAllPropValues('category') возвращает [].*/
+
+
 
